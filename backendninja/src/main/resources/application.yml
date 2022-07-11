@@ -7,3 +7,5 @@ spring:
       enabled: false
       path: /graphiql
     path: /graphql
+  banner:
+    location: classpath:/bannerfile/banner.txt
