@@ -14,6 +14,7 @@ public class ExampleControllerFour {
 	@GetMapping("/error")
 	public ModelAndView errorPage() {
 		ModelAndView mav = new ModelAndView(ERROR_VIEW);
+		int result = 6/0;
 		return mav;
 	}
 
