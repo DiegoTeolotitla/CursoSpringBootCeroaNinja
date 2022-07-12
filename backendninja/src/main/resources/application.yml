@@ -9,3 +9,7 @@ spring:
     path: /graphql
   banner:
     location: classpath:/bannerfile/banner.txt
+server:
+  error:  
+    whitelabel:
+      enabled: false
