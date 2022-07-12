@@ -1,5 +1,7 @@
 package com.udemy.controller;
 
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -17,6 +19,7 @@ public class ExampleControllerThree {
 
 	public static final String FORM_VIEW = "form";
 	public static final String RESULT_VIEW = "result";
+	public static final Log LOGGER = LogFactory.getLog(ExampleControllerThree.class);
 	
 	//First Example redirect
 	/*@GetMapping("/")
@@ -39,6 +42,7 @@ public class ExampleControllerThree {
 	
 	@PostMapping("/addPerson")
 	public ModelAndView addPerson(@ModelAttribute("person") Person person) {
+		LOGGER.info("METHOD: 'addPerson' -- PARAMS: " + person.toString());
 		ModelAndView mav = new ModelAndView(RESULT_VIEW);
 		mav.addObject("person", person);
 		return mav;
