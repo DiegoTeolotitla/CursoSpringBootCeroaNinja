@@ -1,12 +1,5 @@
 #Spring Web Properties
 spring:
-  graphql:
-    cors:
-      max-age: 1800s
-    graphiql:
-      enabled: false
-      path: /graphiql
-    path: /graphql
   banner:
     location: classpath:/bannerfile/banner.txt
 server:
