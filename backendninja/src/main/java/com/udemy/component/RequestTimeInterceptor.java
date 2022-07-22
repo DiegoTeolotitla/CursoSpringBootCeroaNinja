@@ -25,7 +25,7 @@ public class RequestTimeInterceptor extends HandlerInterceptorAdapter{
 	public void afterCompletion(HttpServletRequest request, HttpServletResponse response, Object handler, Exception ex)
 			throws Exception {
 		long startTime = (long) request.getAttribute("startTime");
-		LOG.info("Request URL: " + request.getRequestURL().toString() + " Total time " + (System.currentTimeMillis() - startTime) + " ms");
+		LOG.info("URL to: '" + request.getRequestURL().toString() + "' in: '" + (System.currentTimeMillis() - startTime) + " ms'");
 	}
 
 }
