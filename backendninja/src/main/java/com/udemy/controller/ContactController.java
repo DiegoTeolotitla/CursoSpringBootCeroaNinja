@@ -31,8 +31,13 @@ public class ContactController {
 	}
 
 	@RequestMapping("/contactform")
-	public String redirectContractForm(Model model) {
-		model.addAttribute("contactModel", new ContactModel());
+	public String redirectContractForm(@RequestParam(name = "id", required = false) int id, Model model) {
+		ContactModel contact = new ContactModel();
+
+		if (id != 0) {
+			contact = contactService.findContactByIdModel(id);
+		}
+		model.addAttribute("contactModel", contact);
 		return ViewConstant.CONTACT_FORM;
 	}
 
