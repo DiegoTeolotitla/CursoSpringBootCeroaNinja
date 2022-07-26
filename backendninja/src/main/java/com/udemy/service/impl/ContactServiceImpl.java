@@ -1,5 +1,8 @@
 package com.udemy.service.impl;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
@@ -26,6 +29,17 @@ public class ContactServiceImpl implements ContactService {
 		Contact contact = contactRepository.save(contactConverter.convertContactModelToContact(contactModel));
 
 		return contactConverter.convertContactToContactModel(contact);
+	}
+
+	@Override
+	public List<ContactModel> listAllContacts() {
+		List<Contact> contacts = contactRepository.findAll();
+		List<ContactModel> contactModels = new ArrayList<>();
+		for (Contact contact : contacts) {
+			contactModels.add(contactConverter.convertContactToContactModel(contact));
+		}
+
+		return contactModels;
 	}
 
 }
