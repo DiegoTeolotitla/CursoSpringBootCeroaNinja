@@ -4,6 +4,9 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.User;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -18,6 +21,7 @@ import com.udemy.model.ContactModel;
 import com.udemy.service.ContactService;
 
 @Controller("contactController")
+//@PreAuthorize("permitAll()")
 @RequestMapping("/contacts")
 public class ContactController {
 	private static final Log LOG = LogFactory.getLog(ContactController.class);
@@ -30,6 +34,9 @@ public class ContactController {
 		return "redirect:/contacts/showcontacts";
 	}
 
+	@PreAuthorize("hasRole('ROLE_USER')")
+	//@PreAuthorize("hasRole('ROLE_USER') and hasRole('ROLE_USER')")
+	//@PreAuthorize("hasRole('ROLE_ADMIN')")
 	@RequestMapping("/contactform")
 	public String redirectContractForm(@RequestParam(name = "id", required = false) int id, Model model) {
 		ContactModel contact = new ContactModel();
@@ -56,6 +63,8 @@ public class ContactController {
 	@GetMapping("/showcontacts")
 	public ModelAndView showContacts() {
 		ModelAndView mav = new ModelAndView(ViewConstant.CONTACTS);
+		User user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+		mav.addObject("username", user.getUsername());
 		mav.addObject("contacts", contactService.listAllContacts());
 		return mav;
 	}
