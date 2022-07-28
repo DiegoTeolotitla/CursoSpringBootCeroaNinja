@@ -7,8 +7,18 @@ import org.springframework.stereotype.Repository;
 
 import com.udemy.entity.Contact;
 
+// TODO: Auto-generated Javadoc
+/**
+ * The Interface ContactRepository.
+ */
 @Repository("contactRepository")
 public interface ContactRepository extends JpaRepository<Contact, Serializable> {
 
+	/**
+	 * Find by id.
+	 *
+	 * @param id the id
+	 * @return the contact
+	 */
 	public abstract Contact findById(int id);
 }

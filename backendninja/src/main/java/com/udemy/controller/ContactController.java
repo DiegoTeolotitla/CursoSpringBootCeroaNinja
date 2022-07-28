@@ -20,20 +20,40 @@ import com.udemy.constant.ViewConstant;
 import com.udemy.model.ContactModel;
 import com.udemy.service.ContactService;
 
+// TODO: Auto-generated Javadoc
+/**
+ * The Class ContactController.
+ */
 @Controller("contactController")
 //@PreAuthorize("permitAll()")
 @RequestMapping("/contacts")
 public class ContactController {
+	
+	/** The Constant LOG. */
 	private static final Log LOG = LogFactory.getLog(ContactController.class);
+	
+	/** The contact service. */
 	@Autowired
 	@Qualifier("contactServiceImpl")
 	private ContactService contactService;
 
+	/**
+	 * Cancel.
+	 *
+	 * @return the string
+	 */
 	@GetMapping("/cancel")
 	public String cancel() {
 		return "redirect:/contacts/showcontacts";
 	}
 
+	/**
+	 * Redirect contract form.
+	 *
+	 * @param id the id
+	 * @param model the model
+	 * @return the string
+	 */
 	@PreAuthorize("hasRole('ROLE_USER')")
 	//@PreAuthorize("hasRole('ROLE_USER') and hasRole('ROLE_USER')")
 	//@PreAuthorize("hasRole('ROLE_ADMIN')")
@@ -48,6 +68,13 @@ public class ContactController {
 		return ViewConstant.CONTACT_FORM;
 	}
 
+	/**
+	 * Adds the contact.
+	 *
+	 * @param contactModel the contact model
+	 * @param model the model
+	 * @return the string
+	 */
 	@PostMapping("/addcontact")
 	public String addContact(@ModelAttribute(name = "contactModel") ContactModel contactModel, Model model) {
 		LOG.info("METHOD : addContact() " + "PARAMS : " + contactModel.toString());
@@ -60,6 +87,11 @@ public class ContactController {
 		return "redirect:/contacts/showcontacts";
 	}
 
+	/**
+	 * Show contacts.
+	 *
+	 * @return the model and view
+	 */
 	@GetMapping("/showcontacts")
 	public ModelAndView showContacts() {
 		ModelAndView mav = new ModelAndView(ViewConstant.CONTACTS);
@@ -69,6 +101,12 @@ public class ContactController {
 		return mav;
 	}
 
+	/**
+	 * Removes the contact.
+	 *
+	 * @param id the id
+	 * @return the model and view
+	 */
 	@GetMapping("/removecontact")
 	public ModelAndView removeContact(@RequestParam(name = "id", required = true) int id) {
 		contactService.removeContact(id);

@@ -10,11 +10,24 @@ import org.springframework.web.bind.annotation.RequestParam;
 import com.udemy.constant.ViewConstant;
 import com.udemy.model.UserCredential;
 
+// TODO: Auto-generated Javadoc
+/**
+ * The Class LogginController.
+ */
 @Controller
 public class LogginController {
 	
+	/** The Constant LOG. */
 	private static final Log LOG = LogFactory.getLog(LogginController.class);
 
+	/**
+	 * Showlogin form.
+	 *
+	 * @param model the model
+	 * @param error the error
+	 * @param logout the logout
+	 * @return the string
+	 */
 	@GetMapping("/login")
 	public String showloginForm(Model model, 
 			@RequestParam(name = "error", required = false) String error,
@@ -27,6 +40,11 @@ public class LogginController {
 		return ViewConstant.LOGIN;
 	}
 
+	/**
+	 * Login check.
+	 *
+	 * @return the string
+	 */
 	@GetMapping({"/loginsuccess", "/"})
 	public String loginCheck() {
 		LOG.info("METHOD : loginCheck() ");
